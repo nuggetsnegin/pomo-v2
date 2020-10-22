@@ -10,9 +10,9 @@ export default function Timer() {
   return (
     <div className="container">
       <span>timer: {timer}</span>
-      <button onClick={() => dispatch(startTimer)}>Start</button>
-      <button onClick={() => dispatch(pauseTimer)}>Pause</button>
-      <button onClick={() => dispatch(resetTimer)}>Reset</button>
+      <button onClick={() => dispatch(startTimer())}>Start</button>
+      <button onClick={() => dispatch(pauseTimer())}>Pause</button>
+      <button onClick={() => dispatch(resetTimer())}>Reset</button>
     </div>
   );
 }
