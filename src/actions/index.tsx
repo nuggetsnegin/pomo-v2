@@ -13,13 +13,13 @@ export const resetTimer = () =>
     type: "RESET_TIMER",
   } as const);
 
-export const addTimer = () =>
+export const timerTick = () =>
   ({
-    type: "ADD_TIMER",
+    type: "TIMER_TICK",
   } as const);
 
-type Action =
+export type Action =
   | ReturnType<typeof pauseTimer>
   | ReturnType<typeof resetTimer>
-  | ReturnType<typeof addTimer>
+  | ReturnType<typeof timerTick>
   | ReturnType<typeof startTimer>;
