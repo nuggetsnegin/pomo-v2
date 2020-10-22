@@ -1,12 +1,21 @@
 import { put, delay, select, all, call } from "redux-saga/effects";
-import { getTimer, getStatus, getBreakTimer } from "../selectors";
+import {
+  getTimer,
+  getStatus,
+  getBreakTimer,
+  getIsBreakTime,
+} from "../selectors";
 
 export function* decrementWorkTimer() {
   while (true) {
-    //const currTime1r: number = yield select(getTimer); - we dont know the return type of getTimer, we're just typing currTimer
+    // only decrement your work timer if it's active
+    // and the decrement happens on TIMER_TICK
+    // same for the break timer
+    // then you can have one saga dispatching TIMER_TICK at a time
     const currTimer = getTimer(yield select()); //ts can infer return type of
     const status = getStatus(yield select());
-    if (currTimer <= 1500 && currTimer > 0 && status) {
+    const workType = getIsBreakTime(yield select());
+    if (currTimer <= 1500 && currTimer > 0 && status && workType === "work") {
       yield put({ type: "TIMER_TICK" });
     }
     yield delay(1000);
@@ -16,8 +25,8 @@ export function* decrementWorkTimer() {
 export function* decrementBreakTimer() {
   while (true) {
     const currTimer = getBreakTimer(yield select());
-    const status = getStatus(yield select());
-    if (currTimer <= 1500 && currTimer) {
+    const workType = getIsBreakTime(yield select());
+    if (currTimer <= 300 && currTimer > 0 && workType === "break") {
       yield put({ type: "TIMER_TICK" });
     }
     yield delay(1000);
@@ -25,5 +34,5 @@ export function* decrementBreakTimer() {
 }
 
 export default function* rootSaga() {
-  yield all([call(decrementWorkTimer)]);
+  yield all([call(decrementWorkTimer), call(decrementBreakTimer)]);
 }

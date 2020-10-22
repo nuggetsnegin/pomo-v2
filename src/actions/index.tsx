@@ -1,6 +1,7 @@
 export const startTimer = () =>
   ({
     type: "START_TIMER",
+    payload: "work",
   } as const);
 
 export const pauseTimer = () =>
@@ -21,6 +22,7 @@ export const timerTick = () =>
 export const breakTimerStart = () =>
   ({
     type: "BREAK_TIMER_START",
+    payload: "break",
   } as const);
 
 export type Action =

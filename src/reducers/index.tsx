@@ -9,7 +9,7 @@ const initialState = {
   isRunning: false,
   timer: 1500,
   breakTimer: 300,
-  isBreakTime: false,
+  isBreakOrWorkTime: "",
 };
 
 export type ReducerState = typeof initialState;
@@ -23,6 +23,7 @@ export default function timer(
       return {
         ...state,
         isRunning: true,
+        isBreakOrWorkTime: "work",
       };
     case "PAUSE_TIMER":
       return { ...state, isRunning: false };
@@ -31,7 +32,11 @@ export default function timer(
     case "TIMER_TICK":
       return { ...state, timer: state.timer - 1 };
     case "BREAK_TIMER_START":
-      return { ...state, timer: state.timer - 1, isBreakTime: true };
+      return {
+        ...state,
+        breakTimer: state.breakTimer - 1,
+        isBreakorWorkTime: "break",
+      };
     default:
       return state;
   }

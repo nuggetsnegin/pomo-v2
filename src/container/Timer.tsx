@@ -26,8 +26,15 @@ export default function Timer() {
   };
 
   return (
-    <div className="container">
-      {isBreakTime ? (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        textTransform: "uppercase",
+      }}
+    >
+      {isBreakTime === "break" ? (
         <span>break time: {fancyTimer(breakTimer)}</span>
       ) : (
         <span>timer: {fancyTimer(timer)}</span>
@@ -36,6 +43,7 @@ export default function Timer() {
       <button onClick={() => dispatch(startTimer())}>Start</button>
       <button onClick={() => dispatch(pauseTimer())}>Pause</button>
       <button onClick={() => dispatch(resetTimer())}>Reset</button>
+
       <button onClick={() => dispatch(breakTimerStart())}>Break</button>
     </div>
   );
