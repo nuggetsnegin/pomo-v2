@@ -1,1 +1,16 @@
-import { call, put, all, delay, select } from "redux-saga/effects";
+import { put, delay, select, all, call } from "redux-saga/effects";
+import { getTimer } from "../selectors";
+
+export function* decrementTimer() {
+  while (true) {
+    const currTimer = yield select(getTimer);
+    if (currTimer < 1500) {
+      yield put({ type: "INCREMENT_TIMER" });
+    }
+    yield delay(1000);
+  }
+}
+
+export default function* rootSaga() {
+  yield all([call(decrementTimer)]);
+}

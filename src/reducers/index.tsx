@@ -12,7 +12,7 @@ const initialState = {
   break: 300,
 };
 
-type ReducerState = typeof initialState;
+export type ReducerState = typeof initialState;
 
 export default function timer(
   state = initialState as ReducerState,

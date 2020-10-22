@@ -1,3 +1,3 @@
 import { ReducerState } from "react";
-
-export const getCurrentTime = (state) => state.time;
+//??
+export const getTimer = (state: ReducerState) => state.time;
