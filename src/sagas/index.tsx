@@ -3,7 +3,8 @@ import { getTimer } from "../selectors";
 
 export function* decrementTimer() {
   while (true) {
-    const currTimer = yield select(getTimer);
+    //const currTime1r: number = yield select(getTimer); - we dont know the return type of getTimer, we're just typing currTimer
+    const currTimer = getTimer(yield select()); //ts can infer return type of getTimer
     if (currTimer <= 1500 && currTimer > 0) {
       yield put({ type: "TIMER_TICK" });
     }
