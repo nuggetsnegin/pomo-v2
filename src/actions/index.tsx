@@ -18,8 +18,14 @@ export const timerTick = () =>
     type: "TIMER_TICK",
   } as const);
 
+export const breakTimerStart = () =>
+  ({
+    type: "BREAK_TIMER_START",
+  } as const);
+
 export type Action =
   | ReturnType<typeof pauseTimer>
   | ReturnType<typeof resetTimer>
   | ReturnType<typeof timerTick>
-  | ReturnType<typeof startTimer>;
+  | ReturnType<typeof startTimer>
+  | ReturnType<typeof breakTimerStart>;

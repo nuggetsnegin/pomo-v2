@@ -1,11 +1,18 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { startTimer, pauseTimer, resetTimer } from "../actions";
-import { getTimer } from "../selectors";
+import {
+  startTimer,
+  pauseTimer,
+  resetTimer,
+  breakTimerStart,
+} from "../actions";
+import { getTimer, getBreakTimer, getIsBreakTime } from "../selectors";
 
 export default function Timer() {
   const dispatch = useDispatch();
   const timer = useSelector(getTimer);
+  const breakTimer = useSelector(getBreakTimer);
+  const isBreakTime = useSelector(getIsBreakTime);
 
   const fancyTimer = (timer: number) => {
     //http://rocha.la/JavaScript-bitwise-operators-in-practice
@@ -20,10 +27,16 @@ export default function Timer() {
 
   return (
     <div className="container">
-      <span>timer: {fancyTimer(timer)}</span>
+      {isBreakTime ? (
+        <span>break time: {fancyTimer(breakTimer)}</span>
+      ) : (
+        <span>timer: {fancyTimer(timer)}</span>
+      )}
+
       <button onClick={() => dispatch(startTimer())}>Start</button>
       <button onClick={() => dispatch(pauseTimer())}>Pause</button>
       <button onClick={() => dispatch(resetTimer())}>Reset</button>
+      <button onClick={() => dispatch(breakTimerStart())}>Break</button>
     </div>
   );
 }
