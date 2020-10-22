@@ -7,7 +7,7 @@ export type Action = ReturnType<ActionCreator>;
 
 const initialState = {
   isRunning: false,
-  timer: 0,
+  timer: 1500,
   //break: 300,
 };
 
@@ -22,7 +22,6 @@ export default function timer(
       return {
         ...state,
         isRunning: true,
-        timer: state.timer + 1500,
       };
     case "PAUSE_TIMER":
       return { ...state, isRunning: false };

@@ -4,7 +4,7 @@ import { getTimer } from "../selectors";
 export function* decrementTimer() {
   while (true) {
     const currTimer = yield select(getTimer);
-    if (currTimer < 1500) {
+    if (currTimer <= 1500 && currTimer > 0) {
       yield put({ type: "TIMER_TICK" });
     }
     yield delay(1000);
