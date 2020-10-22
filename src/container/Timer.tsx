@@ -6,13 +6,13 @@ import {
   resetTimer,
   breakTimerStart,
 } from "../actions";
-import { getTimer, getBreakTimer, getIsBreakTime } from "../selectors";
+import { getTimer, getBreakTimer, getIsBreakOrWorkTime } from "../selectors";
 
 export default function Timer() {
   const dispatch = useDispatch();
   const timer = useSelector(getTimer);
   const breakTimer = useSelector(getBreakTimer);
-  const isBreakTime = useSelector(getIsBreakTime);
+  const isBreakOrWorkTime = useSelector(getIsBreakOrWorkTime);
 
   const fancyTimer = (timer: number) => {
     //http://rocha.la/JavaScript-bitwise-operators-in-practice
@@ -34,7 +34,7 @@ export default function Timer() {
         textTransform: "uppercase",
       }}
     >
-      {isBreakTime === "break" ? (
+      {isBreakOrWorkTime === "break" ? (
         <span>break time: {fancyTimer(breakTimer)}</span>
       ) : (
         <span>timer: {fancyTimer(timer)}</span>
