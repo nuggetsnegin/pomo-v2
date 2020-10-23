@@ -49,17 +49,24 @@ export default function Timer() {
         <span>Break timer: {fancyTimer(breakTimeRemaining)}</span>
       )}
 
-      <button onClick={() => dispatch(startWorkTimer())}>Start</button>
-      <button onClick={() => dispatch(pauseWorkTimer())}>Pause</button>
-      <button onClick={() => dispatch(resetWorkTimer())}>Reset</button>
-      <button
-        onClick={() => {
-          dispatch(resetWorkTimer());
-          dispatch(startBreakTimer());
-        }}
-      >
-        Break
-      </button>
+      {!isWorkTimeRunning && (
+        <button onClick={() => dispatch(startWorkTimer())}>Work</button>
+      )}
+
+      {!isBreakTimeRunning && (
+        <>
+          <button onClick={() => dispatch(pauseWorkTimer())}>Pause</button>
+          <button onClick={() => dispatch(resetWorkTimer())}>Reset</button>
+          <button
+            onClick={() => {
+              dispatch(resetWorkTimer());
+              dispatch(startBreakTimer());
+            }}
+          >
+            Break
+          </button>
+        </>
+      )}
     </div>
   );
 }
