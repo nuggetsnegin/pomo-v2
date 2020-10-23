@@ -1,4 +1,4 @@
-//import u from "updeep";
+import u from "updeep";
 import { Action } from "../actions/types";
 
 const WORK_TIMER_DURATION = 1500;
@@ -19,14 +19,11 @@ export default function timer(
       if (state.timeRemaining <= 0 || !state.isRunning) {
         return state;
       }
-      return {
-        ...state,
-        timeRemaining: state.timeRemaining - 1,
-      };
+      return u({ timeRemaining: state.timeRemaining - 1 }, state);
     case "START_WORK_TIMER":
-      return { ...state, isRunning: true };
+      return u({ isRunning: true }, state);
     case "PAUSE_WORK_TIMER":
-      return { ...state, isRunning: false };
+      return u({ isRunning: false }, state);
     case "RESET_WORK_TIMER":
       return initialState;
     default:
