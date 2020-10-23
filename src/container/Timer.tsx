@@ -1,18 +1,18 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  startTimer,
-  pauseTimer,
-  resetTimer,
-  breakTimerStart,
-} from "../actions";
-import { getTimer, getBreakTimer, getIsBreakOrWorkTime } from "../selectors";
+  startWorkTimer,
+  pauseWorkTimer,
+  resetWorkTimer,
+} from "../actions/work";
+import { startBreakTimer } from "../actions/break";
+import { getWorkTimerRemaining } from "../selectors";
 
 export default function Timer() {
   const dispatch = useDispatch();
-  const timer = useSelector(getTimer);
-  const breakTimer = useSelector(getBreakTimer);
-  const isBreakOrWorkTime = useSelector(getIsBreakOrWorkTime);
+  const workTimeRemaining = useSelector(getWorkTimerRemaining);
+  // const breakTimer = useSelector(getBreakTimer);
+  // const isBreakOrWorkTime = useSelector(getIsBreakOrWorkTime);
 
   const fancyTimer = (timer: number) => {
     //http://rocha.la/JavaScript-bitwise-operators-in-practice
@@ -34,17 +34,16 @@ export default function Timer() {
         textTransform: "uppercase",
       }}
     >
-      {isBreakOrWorkTime === "break" ? (
+      <span>Timer: {fancyTimer(workTimeRemaining)}</span>
+      {/* {isBreakOrWorkTime === "break" ? (
         <span>break time: {fancyTimer(breakTimer)}</span>
       ) : (
         <span>timer: {fancyTimer(timer)}</span>
-      )}
-
-      <button onClick={() => dispatch(startTimer())}>Start</button>
-      <button onClick={() => dispatch(pauseTimer())}>Pause</button>
-      <button onClick={() => dispatch(resetTimer())}>Reset</button>
-
-      <button onClick={() => dispatch(breakTimerStart())}>Break</button>
+      )} */}
+      <button onClick={() => dispatch(startWorkTimer())}>Start</button>
+      <button onClick={() => dispatch(pauseWorkTimer())}>Pause</button>
+      <button onClick={() => dispatch(resetWorkTimer())}>Reset</button>
+      {/* <button onClick={() => dispatch(breakTimerStart())}>Break</button> */}
     </div>
   );
 }

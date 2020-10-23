@@ -1,15 +1,15 @@
 //import u from "updeep";
-import * as ACTIONS from "../actions";
+import * as ACTIONS from "../actions/work";
 type ActionsObject = typeof ACTIONS;
 type ActionCreatorKey = keyof ActionsObject;
 type ActionCreator = ActionsObject[ActionCreatorKey];
 export type Action = ReturnType<ActionCreator>;
 
+const WORK_TIMER_DURATION = 1500;
+
 const initialState = {
   isRunning: false,
-  timer: 1500,
-  breakTimer: 300,
-  isBreakOrWorkTime: "",
+  timeRemaining: WORK_TIMER_DURATION,
 };
 
 export type ReducerState = typeof initialState;
@@ -19,24 +19,20 @@ export default function timer(
   action = {} as Action
 ) {
   switch (action.type) {
-    case "START_TIMER":
-      return {
-        ...state,
-        isRunning: true,
-        isBreakOrWorkTime: "work",
-      };
-    case "PAUSE_TIMER":
-      return { ...state, isRunning: false };
-    case "RESET_TIMER":
-      return { ...state, isRunning: false, timer: 1500 };
     case "TIMER_TICK":
-      return { ...state, timer: state.timer - 1 };
-    case "BREAK_TIMER_START":
+      if (state.timeRemaining <= 0 || !state.isRunning) {
+        return state;
+      }
       return {
         ...state,
-        breakTimer: state.breakTimer - 1,
-        isBreakorWorkTime: "break",
+        timeRemaining: state.timeRemaining - action.payload.numTick,
       };
+    case "START_WORK_TIMER":
+      return { ...state, isRunning: true };
+    case "PAUSE_WORK_TIMER":
+      return { ...state, isRunning: false };
+    case "RESET_WORK_TIMER":
+      return initialState;
     default:
       return state;
   }

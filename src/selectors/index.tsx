@@ -1,7 +1,4 @@
-import { ReducerState } from "../reducers";
+import { ReducerState } from "../reducers/work";
 
-export const getTimer = (state: ReducerState) => state.timer;
-export const getStatus = (state: ReducerState) => state.isRunning;
-export const getBreakTimer = (state: ReducerState) => state.breakTimer;
-export const getIsBreakOrWorkTime = (state: ReducerState) =>
-  state.isBreakOrWorkTime;
+export const getWorkTimerRemaining = (state: ReducerState) =>
+  state.timeRemaining;
