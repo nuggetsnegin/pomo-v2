@@ -3,7 +3,7 @@ import { timerTick } from "../actions/tick";
 
 export function* timerTicking() {
   while (true) {
-    yield put(timerTick(1));
+    yield put(timerTick());
     yield delay(1000);
   }
 }

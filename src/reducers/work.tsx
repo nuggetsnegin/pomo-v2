@@ -1,9 +1,5 @@
 //import u from "updeep";
-import * as ACTIONS from "../actions/work";
-type ActionsObject = typeof ACTIONS;
-type ActionCreatorKey = keyof ActionsObject;
-type ActionCreator = ActionsObject[ActionCreatorKey];
-export type Action = ReturnType<ActionCreator>;
+import { Action } from "../actions/types";
 
 const WORK_TIMER_DURATION = 1500;
 
@@ -12,10 +8,10 @@ const initialState = {
   timeRemaining: WORK_TIMER_DURATION,
 };
 
-export type ReducerState = typeof initialState;
+export type WorkTimerState = typeof initialState;
 
 export default function timer(
-  state = initialState as ReducerState,
+  state = initialState as WorkTimerState,
   action = {} as Action
 ) {
   switch (action.type) {
@@ -25,7 +21,7 @@ export default function timer(
       }
       return {
         ...state,
-        timeRemaining: state.timeRemaining - action.payload.numTick,
+        timeRemaining: state.timeRemaining - 1,
       };
     case "START_WORK_TIMER":
       return { ...state, isRunning: true };

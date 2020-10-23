@@ -1,9 +1,5 @@
-//import u from "updeep";
-import * as ACTIONS from "../actions/break";
-type ActionsObject = typeof ACTIONS;
-type ActionCreatorKey = keyof ActionsObject;
-type ActionCreator = ActionsObject[ActionCreatorKey];
-export type Action = ReturnType<ActionCreator>;
+import u from "updeep";
+import { Action } from "../actions/types";
 
 const BREAK_TIMER_DURATION = 300;
 
@@ -12,10 +8,10 @@ const initialState = {
   timeRemaining: BREAK_TIMER_DURATION,
 };
 
-export type ReducerState = typeof initialState;
+export type BreakTimerState = typeof initialState;
 
 export default function timer(
-  state = initialState as ReducerState,
+  state = initialState as BreakTimerState,
   action = {} as Action
 ) {
   switch (action.type) {
@@ -23,16 +19,9 @@ export default function timer(
       if (state.timeRemaining <= 0 || !state.isRunning) {
         return state;
       }
-      return {
-        ...state,
-        timeRemaining: state.timeRemaining - action.payload.numTick,
-      };
+      return u({ timeRemaining: state.timeRemaining - 1 }, state);
     case "START_BREAK_TIMER":
-      return { ...state, isRunning: true };
-    case "PAUSE_BREAK_TIMER":
-      return { ...state, isRunning: false };
-    case "RESET_BREAK_TIMER":
-      return initialState;
+      return u({ isRunning: true }, state);
     default:
       return state;
   }

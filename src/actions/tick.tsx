@@ -1,9 +1,4 @@
-export const timerTick = (numTick: number) =>
+export const timerTick = () =>
   ({
     type: "TIMER_TICK",
-    payload: {
-      numTick,
-    },
   } as const);
-
-export type Action = ReturnType<typeof timerTick>;
