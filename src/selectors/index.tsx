@@ -3,17 +3,17 @@ import { ReducerState } from "../reducers/types";
 //combined reducer - representative of our redux state
 
 export const getWorkTimerRemaining = (state: ReducerState) => {
-  return state.workTimer.timeRemaining;
+  return state.timer.workTimeRemaining;
 };
 
 export const getBreakTimerRemaining = (state: ReducerState) => {
-  return state.breakTimer.timeRemaining;
+  return state.timer.breakTimeRemaining;
 };
 
 export const getIsWorkTimeRunning = (state: ReducerState) => {
-  return state.workTimer.isRunning;
+  return state.timer.isRunning;
 };
 
 export const getIsBreakTimeRunning = (state: ReducerState) => {
-  return state.breakTimer.isRunning;
+  return state.timer.isRunning;
 };
