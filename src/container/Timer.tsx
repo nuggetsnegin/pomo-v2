@@ -33,40 +33,50 @@ export default function Timer() {
     return format;
   };
 
+  const styles = {
+    container: {
+      display: "flex",
+      width: "50vw",
+      margin: "10vh auto",
+      justifyContent: "space-between",
+      textTransform: "uppercase",
+    } as React.CSSProperties,
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        textTransform: "uppercase",
-      }}
-    >
+    <div>
       {!isBreakTimeRunning && (
-        <span>Timer: {fancyTimer(workTimeRemaining)}</span>
+        <span
+          style={{
+            fontSize: "3rem",
+          }}
+        >
+          Timer: {fancyTimer(workTimeRemaining)}
+        </span>
       )}
       {!isWorkTimeRunning && isBreakTimeRunning && (
         <span>Break timer: {fancyTimer(breakTimeRemaining)}</span>
       )}
+      <div className="timers" style={styles.container}>
+        {!isWorkTimeRunning && (
+          <button onClick={() => dispatch(startWorkTimer())}>Start</button>
+        )}
 
-      {!isWorkTimeRunning && (
-        <button onClick={() => dispatch(startWorkTimer())}>Work</button>
-      )}
-
-      {!isBreakTimeRunning && (
-        <>
-          <button onClick={() => dispatch(pauseWorkTimer())}>Pause</button>
-          <button onClick={() => dispatch(resetWorkTimer())}>Reset</button>
-          <button
-            onClick={() => {
-              dispatch(resetWorkTimer());
-              dispatch(startBreakTimer());
-            }}
-          >
-            Break
-          </button>
-        </>
-      )}
+        {!isBreakTimeRunning && (
+          <>
+            <button onClick={() => dispatch(pauseWorkTimer())}>Pause</button>
+            <button onClick={() => dispatch(resetWorkTimer())}>Reset</button>
+            <button
+              onClick={() => {
+                dispatch(resetWorkTimer());
+                dispatch(startBreakTimer());
+              }}
+            >
+              Break
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }
