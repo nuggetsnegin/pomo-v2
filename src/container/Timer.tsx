@@ -12,7 +12,9 @@ import {
   getIsBreakTimeRunning,
   getIsWorkTimeRunning,
 } from "../selectors";
-
+// TO DO:
+// - fix logic of when pause and break is shown
+// - implement sound
 export default function Timer() {
   const dispatch = useDispatch();
   const workTimeRemaining = useSelector(getWorkTimerRemaining);
