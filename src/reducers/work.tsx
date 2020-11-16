@@ -2,10 +2,12 @@ import u from "updeep";
 import { Action } from "../actions/types";
 
 const WORK_TIMER_DURATION = 1500;
+const BREAK_TIMER_DURATION = 300;
 
 const initialState = {
   isRunning: false,
-  timeRemaining: WORK_TIMER_DURATION,
+  workTimeRemaining: WORK_TIMER_DURATION,
+  breakTimeRemaining: BREAK_TIMER_DURATION,
 };
 
 export type WorkTimerState = typeof initialState;
@@ -16,11 +18,17 @@ export default function timer(
 ) {
   switch (action.type) {
     case "TIMER_TICK":
-      if (state.timeRemaining <= 0 || !state.isRunning) {
+      if (
+        state.breakTimeRemaining <= 0 ||
+        state.workTimeRemaining <= 0 ||
+        !state.isRunning
+      ) {
         return state;
       }
-      return u({ timeRemaining: state.timeRemaining - 1 }, state);
+      return u({ timeRemaining: state.breakTimeRemaining - 1 }, state);
     case "START_WORK_TIMER":
+      return u({ isRunning: true }, state);
+    case "START_BREAK_TIMER":
       return u({ isRunning: true }, state);
     case "PAUSE_WORK_TIMER":
       return u({ isRunning: false }, state);
